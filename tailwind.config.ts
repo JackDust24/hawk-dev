@@ -23,7 +23,7 @@ export default {
           DEFAULT: "hsl(var(--primary))",
           main: "var(--primary-main)",
           lighter: "var(--primary-lighter)",
-          foreground: "hsl(var(--primary-foreground))",
+          foreground: "var(--primary-foreground)",
         },
         card: {
           DEFAULT: "hsl(var(--card))",
