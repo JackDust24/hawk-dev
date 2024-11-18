@@ -17,7 +17,6 @@ const Post: Collection = {
       type: "string",
       label: "Subtitle",
       name: "subtitle",
-      required: true,
     },
     {
       type: "image",
