@@ -103,7 +103,7 @@ export default function PostsClientPage(props: ClientPostProps) {
               </CardContent>
               <CardFooter className="px-4 py-2 flex justify-between text-[var(--card-text)]">
                 <span>{formattedDate}</span>
-                <span>{post.author}</span>
+                <span>{post.poster}</span>
               </CardFooter>
             </Card>
           </Link>

@@ -30,8 +30,8 @@ const Post: Collection = {
     },
     {
       type: "string",
-      label: "Author",
-      name: "author",
+      label: "Poster",
+      name: "poster",
     },
     {
       type: "datetime",
