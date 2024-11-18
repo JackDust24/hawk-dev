@@ -27,7 +27,6 @@ export default function PostClientPage(props: ClientPostProps) {
   return (
     <>
       {post.heroImg && (
-        //  <div className="w-full mb-6"></div>
         <div className="px-4 w-full">
           <div
             data-tina-field={tinaField(post, "heroImg")}

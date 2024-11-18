@@ -21,26 +21,3 @@ async function Home() {
 }
 
 export default Home;
-
-{
-  /* <div className="line-clamp-3">
-                  <RichText content={post.content} />
-                </div> */
-}
-
-// import client from "../../tina/__generated__/client";
-// import PostsClientPage from "./client-page";
-
-// export default async function PostsPage() {
-//   const posts = await client.queries.postConnection();
-
-//   if (!posts) {
-//     return null;
-//   }
-
-//   return (
-//     <Layout rawPageData={posts.data}>
-//       <PostsClientPage {...posts} />
-//     </Layout>
-//   );
-// }
