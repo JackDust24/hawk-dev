@@ -3,7 +3,6 @@ import { format } from "date-fns";
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
-import { BsArrowRight } from "react-icons/bs";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import {
   PostConnectionQuery,

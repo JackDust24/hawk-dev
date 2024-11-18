@@ -1,12 +1,15 @@
-import Image from "next/image";
-import { notFound } from "next/navigation";
+import React from "react";
+import client from "../../../tina/__generated__/client";
 
 export default async function PostDetails({
   params,
 }: {
-  params: { slug: string };
+  params: { filename: string[] };
 }) {
-  const { slug } = params;
+  const data = await client.queries.post({
+    relativePath: `${params.filename.join("/")}.mdx`,
+  });
+  console.log(data);
   // const payload = await getPayloadHMR({ config: configPromise })
 
   // const posts = await payload.find({
