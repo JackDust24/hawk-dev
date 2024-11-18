@@ -1,0 +1,68 @@
+---
+title: Coding Anxiety
+subtitle: Plan Your Code Before You Type
+heroImg: /uploads/BlueLogo.png
+excerpt: >
+  You’ve been assigned a new feature or a complex task. You dive straight in,
+  typing away, building one big, monolithic component that handles everything.
+  You tell yourself, "I’ll refactor later," or "I’ll tidy up this code when I’m
+  done." But then, a few hours later, you're sitting back, staring at your
+  screen, wondering what you’ve actually created.
+author: Jason Whittaker
+date: 2024-11-17T17:00:00.000Z
+---
+
+### Coding Anxiety and Why You Must Plan Your Code Before You Start Typing
+
+In the fast-paced world of development, it’s easy to fall into the trap of wanting to get features out quickly or solve complex problems in the shortest amount of time possible. It feels natural—after all, we want to see results, and we want them fast. But this "rush-to-code" mentality can lead to something much more problematic than the challenge you were initially trying to solve: coding anxiety.
+
+#### The Rush to Build: The Danger of “Just Getting It Done”
+
+Imagine this scenario: You’ve been assigned a new feature or a complex task. You dive straight in, typing away, building one big, monolithic component that handles everything. You tell yourself, "I’ll refactor later," or "I’ll tidy up this code when I’m done." But then, a few hours later, you're sitting back, staring at your screen, wondering what you’ve actually created.
+
+This is a common occurrence for many developers who, driven by deadlines or the need to show progress, start building without a clear plan. It’s tempting to throw all your code into one large component, thinking that you'll come back to clean it up once it's functional. However, this approach is fraught with risks, especially in larger projects.
+
+#### The Problems That Arise from This Approach
+
+1. Confusion About What Code Does
+   When you write code in a hurry, skipping over the important step of planning, you often end up with messy, convoluted functions or components that don't have clear, well-defined responsibilities. As you keep adding more features or expanding on the existing code, it can become increasingly difficult to understand how things work—what each function does, why certain pieces of logic exist, and where things should be updated or fixed. It can lead to confusion not just for you, but for anyone else who works with your code later.
+2. Multiple State Rerenders
+   Another side effect of hastily built components is poor state management. When components become bloated with responsibilities, state management gets messy. You may have state variables changing in multiple places, triggering unnecessary re-renders, or causing UI bugs. The more complex your component grows, the harder it becomes to track these state changes. This is especially problematic in React, where unnecessary re-renders can significantly impact performance, leading to a sluggish and unresponsive app.
+3. Forgetting What Code Does
+   The worst part? When you come back to your code after taking a break, it’s often hard to remember what your own code does. You might find yourself reading through your own functions and asking, "What was I thinking here?" Without proper structure and planning, this "future you" becomes a stranger to "present you"—making debugging and adding features later a nightmare.
+4. The Refactor Trap
+   Refactoring after you’ve built something huge with no initial plan is daunting. It’s one thing to refactor a small, isolated function; it’s another to touch a massive component with hundreds of lines of code. The fear of breaking something, the uncertainty about where to start, and the overwhelming nature of the task can cause coding anxiety. Refactoring should be part of the process, not something to dread later.
+
+#### The Importance of Planning Ahead
+
+It's crucial to understand that building code without a plan might save you time in the short term, but it will only make things harder in the long run. As tempting as it may be to dive straight into coding, planning ahead will save you time, reduce bugs, and eliminate a lot of anxiety. Here's how:
+
+1. Plan Your Components Carefully
+   Before you start typing code, take a moment to break down the feature you're building into small, manageable components. Ask yourself: What are the responsibilities of each component? Can you separate concerns? Which ones can be reusable? Planning your components helps prevent bloated, hard-to-manage code and keeps things organized.
+2. State Management
+   State management is one of the most common sources of confusion and bugs in complex applications. Plan out how data flows through your app. Where does the state live? How does it interact with components? What happens when state changes? By thinking through state management early on, you can avoid unnecessary re-renders and ensure your components behave predictably.
+3. Helpers and Utility Functions
+   Don’t forget to plan your helpers and utility functions. Even small pieces of logic, like formatting dates or calculating values, should be isolated into reusable functions. This makes your code cleaner and easier to test. If your helper functions live in the right places, you won’t find yourself rewriting the same logic in multiple places, and your code will be much easier to maintain.
+4. SOLID Principles
+   One of the best approaches to reducing coding anxiety and creating maintainable code is following the SOLID principles. These five principles (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion) provide a clear framework for structuring your code. By following SOLID, you ensure that your code is modular, scalable, and easier to refactor. It will also make it easier to add new features or fix bugs without introducing new issues.
+
+#### Small Tasks Are Okay: Prototyping vs. Full-Scale Development
+
+While planning is essential for most features, it’s important to note that small tasks or proof of concepts (POCs) may not require the same level of upfront planning. If you're just trying to show that something works or build a quick prototype to validate an idea, it’s okay to throw something together without perfect structure.
+
+However, once you move past prototyping and are building a full feature, it’s time to slow down and make sure you're following a clean, planned approach. The same goes for debugging: if you're working with a complex bug or a new feature, it's worth taking a step back and planning before diving straight into code.
+
+
+
+
+#### How Planning Reduces Anxiety
+
+When you have a clear plan, it eliminates much of the guesswork. You know where each piece of your code belongs, what it's supposed to do, and how it's going to interact with other components. There’s no panic, no “what if I break something” fear. And when you do encounter issues, having a well-structured plan makes it easier to identify and fix problems without getting overwhelmed.
+
+### Conclusion: Code with Confidence
+
+While it’s tempting to rush into coding, especially when you're under pressure to deliver something quickly, the benefits of planning ahead cannot be overstated. By planning your components, state management, helpers, and following SOLID principles, you create code that is easier to maintain, debug, and scale.
+
+Next time you sit down to build a feature, take the time to plan it out. You’ll find that not only will your code be cleaner, but you’ll also experience far less anxiety and frustration throughout the development process. The result? A more enjoyable, efficient, and productive coding experience.
+
+
