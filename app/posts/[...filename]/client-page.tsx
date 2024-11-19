@@ -45,13 +45,13 @@ export default function PostClientPage(props: ClientPostProps) {
       <div className="flex flex-col gap-4">
         <h2
           data-tina-field={tinaField(post, "title")}
-          className={`w-full relative	mb-8 text-6xl font-extrabold tracking-normal text-center title-font`}
+          className={`w-full relative	mb-8 text-5xl font-extrabold tracking-normal text-center title-font`}
         >
           <span>{post.title}</span>
         </h2>
         <h2
           data-tina-field={tinaField(post, "subtitle")}
-          className={`w-full relative	mb-8 text-6xl font-extrabold tracking-normal text-center title-font`}
+          className={`w-full relative	mb-8 text-3xl font-extrabold tracking-normal text-center title-font`}
         >
           <span>{post.subtitle}</span>
         </h2>

@@ -61,7 +61,9 @@ export default function RootLayout({
               </div>
             </Nav>
           </header>
-          <main className="flex-grow py-[60px] mt-[40px]">{children}</main>
+          <main className="flex-grow py-[60px] mt-[40px] px-6 md:px-0">
+            {children}
+          </main>
           <footer className="row-start-3 w-full flex text-white gap-6 flex-wrap items-center justify-center  bg-black">
             <div className="pl-8">
               © {new Date().getFullYear()} HawkDev. All rights reserved.
