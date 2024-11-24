@@ -1,40 +1,36 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { tinaField, useTina } from "tinacms/dist/react";
+import ReactMarkdown from "react-markdown";
 import { format } from "date-fns";
-import { PostQuery } from "../../../tina/__generated__/types";
-import { TinaMarkdown } from "tinacms/dist/rich-text";
 
 interface ClientPostProps {
-  data: PostQuery;
-  variables: {
-    relativePath: string;
+  frontmatter: {
+    title: string;
+    subtitle?: string;
+    heroImg?: string;
+    poster?: string;
+    date?: string;
   };
-  query: string;
+  content: string;
 }
 
-export default function PostClientPage(props: ClientPostProps) {
-  const { data } = useTina({ ...props });
-  const post = data.post;
+export default function PostClientPage({
+  frontmatter,
+  content,
+}: ClientPostProps) {
+  const { title, subtitle, heroImg, poster, date } = frontmatter;
 
-  const date = new Date(post.date);
-  let formattedDate = "";
-  if (!isNaN(date.getTime())) {
-    formattedDate = format(date, "MMM dd, yyyy");
-  }
+  const formattedDate = date ? format(new Date(date), "MMM dd, yyyy") : "";
 
   return (
     <>
-      {post.heroImg && (
+      {heroImg && (
         <div className="px-4 w-full">
-          <div
-            data-tina-field={tinaField(post, "heroImg")}
-            className="relative max-w-4xl lg:max-w-5xl mx-auto"
-          >
+          <div className="relative max-w-4xl lg:max-w-5xl mx-auto">
             <Image
-              src={post.heroImg}
-              alt={post.title}
+              src={heroImg}
+              alt={title}
               width={500}
               height={500}
               className="relative z-10 mb-14 block rounded-lg w-full h-auto opacity-100"
@@ -43,43 +39,30 @@ export default function PostClientPage(props: ClientPostProps) {
         </div>
       )}
       <div className="flex flex-col gap-4">
-        <h2
-          data-tina-field={tinaField(post, "title")}
-          className={`w-full relative	mb-8 text-5xl font-extrabold tracking-normal text-center title-font`}
-        >
-          <span>{post.title}</span>
+        <h2 className="w-full relative mb-8 text-5xl font-extrabold tracking-normal text-center title-font">
+          <span>{title}</span>
         </h2>
-        <h2
-          data-tina-field={tinaField(post, "subtitle")}
-          className={`w-full relative	mb-8 text-3xl font-extrabold tracking-normal text-center title-font`}
-        >
-          <span>{post.subtitle}</span>
-        </h2>
+        {subtitle && (
+          <h2 className="w-full relative mb-8 text-3xl font-extrabold tracking-normal text-center title-font">
+            <span>{subtitle}</span>
+          </h2>
+        )}
       </div>
-      <div
-        data-tina-field={tinaField(post, "poster")}
-        className="flex items-center justify-center mb-16"
-      >
-        {post.poster && (
+      <div className="flex items-center justify-center mb-16">
+        {poster && (
           <>
-            {post.poster}
+            {poster}
             <span className="font-bold text-gray-200 dark:text-gray-500 mx-2">
               —
             </span>
           </>
         )}
-        <p
-          data-tina-field={tinaField(post, "date")}
-          className="text-base text-gray-400 group-hover:text-gray-500 dark:text-gray-300 dark:group-hover:text-gray-150"
-        >
+        <p className="text-base text-gray-400 group-hover:text-gray-500 dark:text-gray-300 dark:group-hover:text-gray-150">
           {formattedDate}
         </p>
       </div>
-      <div
-        data-tina-field={tinaField(post, "_body")}
-        className="prose dark:prose-dark w-full max-w-none"
-      >
-        <TinaMarkdown content={post._body} />
+      <div className="prose dark:prose-dark w-full max-w-none">
+        <ReactMarkdown>{content}</ReactMarkdown>
       </div>
     </>
   );

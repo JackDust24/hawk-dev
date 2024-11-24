@@ -1,19 +1,18 @@
 {
-  "name": "@tinacms/starter",
+  "name": "hawk-dev",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "tinacms dev -c \"next dev\"",
-    "build": "tinacms build && next build",
-    "build-local": "tinacms build --local --skip-indexing --skip-cloud-checks && next build",
-    "start": "tinacms build && next start",
+    "dev": "next dev",
+    "build": "next build",
+    "build-local": "next build",
+    "start": "next start",
     "export": "npm run build && next export",
     "lint": "next lint",
     "dev:build": "next build"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
-    "@tinacms/cli": "^1.6.11",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^22.5.1",
     "@types/react": "^18.3.4",
@@ -31,6 +30,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
+    "gray-matter": "^4.0.3",
     "init": "^0.1.2",
     "lucide-react": "^0.460.0",
     "next": "^14.2.7",
@@ -38,12 +38,12 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.3.0",
+    "react-markdown": "^9.0.1",
     "shadcn": "^2.1.6",
     "styled-jsx": "^5.1.6",
     "tailwind-merge": "^2.5.2",
     "tailwindcss": "^3.4.10",
     "tailwindcss-animate": "^1.0.7",
-    "tinacms": "^2.4.0",
     "typescript": "^5.5.4"
   },
   "packageManager": "pnpm@9.13.2+sha512.88c9c3864450350e65a33587ab801acf946d7c814ed1134da4a924f6df5a2120fd36b46aab68f7cd1d413149112d53c7db3a4136624cfd00ff1846a0c6cef48a"

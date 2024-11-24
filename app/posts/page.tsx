@@ -1,11 +1,41 @@
-import client from "../../tina/__generated__/client";
 import PostsPage from "./client-page";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+
+export function getPosts() {
+  const postsDirectory = path.join(process.cwd(), "content/posts");
+  const filenames = fs.readdirSync(postsDirectory);
+
+  const posts = filenames.map((filename) => {
+    const filePath = path.join(postsDirectory, filename);
+    const fileContents = fs.readFileSync(filePath, "utf8");
+
+    const { data, content } = matter(fileContents);
+
+    return {
+      id: filename.replace(/\.mdx$/, ""),
+      title: data.title,
+      subtitle: data.subtitle,
+      date: data.date,
+      excerpt: data.excerpt,
+      poster: data.poster,
+      heroImg: data.heroImg,
+      content,
+      _sys: {
+        breadcrumbs: [filename.replace(/\.mdx$/, "")], // Simulate breadcrumb behavior
+      },
+    };
+  });
+
+  return posts;
+}
 
 async function Home() {
-  const posts = await client.queries.postConnection();
+  const posts = getPosts();
 
-  if (!posts) {
-    return null;
+  if (!posts.length) {
+    return <div>No posts found.</div>;
   }
 
   return (
@@ -14,7 +44,7 @@ async function Home() {
         Posts
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <PostsPage {...posts} />
+        <PostsPage posts={posts} />
       </div>
     </div>
   );

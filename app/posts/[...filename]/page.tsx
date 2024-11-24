@@ -1,14 +1,19 @@
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
 import React from "react";
-import client from "../../../tina/__generated__/client";
-
 import PostClientPage from "./client-page";
 
+const postsDirectory = path.join(process.cwd(), "content/posts");
+
 export async function generateStaticParams() {
-  const posts = await client.queries.postConnection();
-  const paths = posts.data?.postConnection.edges.map((edge) => ({
-    filename: edge.node._sys.breadcrumbs,
+  const filenames = fs.readdirSync(postsDirectory);
+
+  const paths = filenames.map((filename) => ({
+    filename: filename.replace(/\.mdx$/, "").split("/"),
   }));
-  return paths || [];
+
+  return paths;
 }
 
 export default async function PostPage({
@@ -16,13 +21,17 @@ export default async function PostPage({
 }: {
   params: { filename: string[] };
 }) {
-  const data = await client.queries.post({
-    relativePath: `${params.filename.join("/")}.mdx`,
-  });
+  const filePath = path.join(
+    postsDirectory,
+    `${params.filename.join("/")}.mdx`
+  );
+  const fileContent = fs.readFileSync(filePath, "utf-8");
+
+  const { data: frontmatter, content } = matter(fileContent);
 
   return (
     <div className="p-10 mt-10 max-w-5xl bg-primary-lighter mx-auto rounded-lg shadow-lg">
-      <PostClientPage {...data} />
+      <PostClientPage frontmatter={frontmatter} content={content} />
     </div>
   );
 }

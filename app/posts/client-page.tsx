@@ -3,12 +3,6 @@ import { format } from "date-fns";
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
-import { TinaMarkdown } from "tinacms/dist/rich-text";
-import {
-  PostConnectionQuery,
-  PostConnectionQueryVariables,
-} from "../../tina/__generated__/types";
-import { useTina } from "tinacms/dist/react";
 import {
   Card,
   CardHeader,
@@ -18,20 +12,29 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import BlueLogo from "@/public/BlueLogo.png";
+import ReactMarkdown from "react-markdown";
 
-interface ClientPostProps {
-  data: PostConnectionQuery;
-  variables: PostConnectionQueryVariables;
-  query: string;
+interface Post {
+  id: string;
+  title: string;
+  subtitle: string;
+  date: string;
+  excerpt: string;
+  poster: string;
+  heroImg: string;
+  _sys: {
+    breadcrumbs: string[];
+  };
 }
 
-export default function PostsClientPage(props: ClientPostProps) {
-  const { data } = useTina({ ...props });
+interface PostsClientPageProps {
+  posts: Post[];
+}
 
+export default function PostsClientPagee({ posts }: PostsClientPageProps) {
   return (
     <>
-      {data?.postConnection.edges.map((postData) => {
-        const post = postData.node;
+      {posts.map((post) => {
         const date = new Date(post.date);
         let formattedDate = "";
         if (!isNaN(date.getTime())) {
@@ -64,7 +67,7 @@ export default function PostsClientPage(props: ClientPostProps) {
               </CardHeader>
               <CardContent className="py-2 text-[var(--card-text)]">
                 <div className="line-clamp-3">
-                  <TinaMarkdown content={post.excerpt} />
+                  <ReactMarkdown>{post.excerpt}</ReactMarkdown>
                 </div>
               </CardContent>
               <CardFooter className="px-4 py-2 flex justify-between text-[var(--card-text)]">
