@@ -55,6 +55,7 @@ export default function RootLayout({
                     />
                   </Link>
                 </div>
+                <NavLink href="/portfolio">Portfolio</NavLink>
                 <NavLink href="/posts">Blog</NavLink>
                 <NavLink href="/aboutme">About Me</NavLink>
                 <NavLink href="/contact">Contact</NavLink>
