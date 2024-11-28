@@ -52,20 +52,20 @@ export default function PostsClientPagee({ posts }: PostsClientPageProps) {
               <CardHeader>
                 <div className="relative w-full h-48">
                   <Image
-                    src={BlueLogo}
+                    src={post.heroImg}
                     alt={post.title}
                     fill
                     className="rounded-t-md object-cover"
                   />
                 </div>
-                <CardTitle className="text-xl font-bold mt-4 text-[var(--card-text)]">
+                <CardTitle className="text-xl font-bold mt-4 text-[var(--card-text)] line-clamp-2 h-[3.4rem] overflow-hidden">
                   {post.title}
                 </CardTitle>
-                <CardDescription className="text-[var(--card-text)]">
+                <CardDescription className="text-[var(--card-text)] line-clamp-2 h-[3rem] overflow-hidden">
                   {post.subtitle}
                 </CardDescription>
               </CardHeader>
-              <CardContent className="py-2 text-[var(--card-text)]">
+              <CardContent className="py-1 text-[var(--card-text)]">
                 <div className="line-clamp-3">
                   <ReactMarkdown>{post.excerpt}</ReactMarkdown>
                 </div>

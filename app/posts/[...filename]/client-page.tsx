@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import { format } from "date-fns";
+import { MarkdownPages } from "@/components/Markdown";
 
 interface ClientPostProps {
   frontmatter: {
@@ -25,9 +26,19 @@ export default function PostClientPage({
 
   return (
     <>
+      <div className="flex flex-col gap-4 pt-4">
+        <h2 className="w-full relative mb-8 text-4xl font-extrabold tracking-normal text-center title-font">
+          <span>{title}</span>
+        </h2>
+        {subtitle && (
+          <h2 className="w-full relative mb-8 text-2xl font-extrabold tracking-normal text-center title-font">
+            <span>{subtitle}</span>
+          </h2>
+        )}
+      </div>
       {heroImg && (
         <div className="px-4 w-full">
-          <div className="relative max-w-4xl lg:max-w-5xl mx-auto">
+          <div className="relative max-w-2xl lg:max-w-5xl mx-auto">
             <Image
               src={heroImg}
               alt={title}
@@ -38,16 +49,7 @@ export default function PostClientPage({
           </div>
         </div>
       )}
-      <div className="flex flex-col gap-4">
-        <h2 className="w-full relative mb-8 text-5xl font-extrabold tracking-normal text-center title-font">
-          <span>{title}</span>
-        </h2>
-        {subtitle && (
-          <h2 className="w-full relative mb-8 text-3xl font-extrabold tracking-normal text-center title-font">
-            <span>{subtitle}</span>
-          </h2>
-        )}
-      </div>
+
       <div className="flex items-center justify-center mb-16">
         {poster && (
           <>
@@ -61,8 +63,11 @@ export default function PostClientPage({
           {formattedDate}
         </p>
       </div>
+      {/* <ReactMarkdown className="text-base leading-relaxed">
+          {content}
+        </ReactMarkdown> */}
       <div className="prose dark:prose-dark w-full max-w-none">
-        <ReactMarkdown>{content}</ReactMarkdown>
+        <MarkdownPages content={content} />
       </div>
     </>
   );

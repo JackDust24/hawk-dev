@@ -22,7 +22,7 @@ export default function PortfolioPage() {
         {projects.map((project, index) => (
           <Card
             key={project.title}
-            className="p-4 border border-[var(--card-border)] shadow-lg shadow-gray-500 rounded-md transform hover:scale-105 transition-transform duration-200 flex flex-col h-full"
+            className="p-4 bg-[var(--card-bg)] border border-[var(--card-border)] shadow-lg shadow-gray-500 rounded-md transform hover:scale-105 transition-transform duration-200 flex flex-col h-full"
           >
             <CardHeader className="flex flex-col items-center">
               <CardTitle className="text-xl font-bold text-primary-foreground text-center">

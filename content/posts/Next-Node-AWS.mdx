@@ -1,0 +1,424 @@
+---
+title: Deploying Next.js & Node.js with Docker on AWS EC2
+subtitle: Step by Step Guide to deploy Next and Node on AWS EC2 instance
+heroImg: /uploads/dog-code.jpg
+excerpt: >
+  Vercel is great for your fullstack Next.js app, but what if you wish to host on AWS for free?
+
+poster: Jason Whittaker
+date: 2024-11-27T12:00:00.000Z
+---
+
+# How to Deploy Next.js and Node.js Applications in Docker Containers on AWS EC2
+
+## Pre-assumptions:
+
+You already know how to set up a Next.js, Node.js and Express.
+
+\_This is NOT a walkthrough of creation of a Next.js and Node.js app; though you can look more online for a tutorial if you need.
+
+Preferred, but not essential, familair with AWS, EC2 and Docker. Will delve into each, but nor is this a detailed deep look into them.
+
+Deploying a modern web application can seem challenging, but with a structured approach, you can deploy a Next.js (client-side) and Node.js (server-side) application on AWS EC2 using Docker without too much hassle. A troubleshooting guide is at the end of this piece if you run into issues.
+This guide walks you through the process step-by-step.
+
+---
+
+## Phase 1: Prepare Your Code
+
+### 1. Set Up Client-Side with Next.js
+
+- Create your Next.js app:
+
+  ```bash
+  npx create-next-app@latest
+  ```
+
+- Install your dependencies and create your env vars in env.local
+
+### 2. Set Up Server side with Node.js and Express
+
+You may wish to go the route of a static generated build, for this demo, have gonne for SSR.
+
+Create your server directory and initialize a Node.js app:
+
+- Create your Node.js app:
+
+  ```bash
+  mkdir server
+  cd server
+  npm init -y
+  ```
+
+- Install necessary dependencies:
+
+  ```bash
+  npm install express dotenv
+  ```
+
+- Set up the main server file (e.g., server.js):
+
+  ```bash
+  const express = require('express');
+  const app = express();
+  const PORT = process.env.PORT || 4000;
+
+   app.get('/', (req, res) => {
+   res.send('Node.js server is running');
+   });
+
+   app.listen(PORT, () => {
+   console.log(`Server running on port ${PORT}`);
+   });
+  ```
+
+- From here build out the rest of your Node.js app
+
+## Phase 2: Set Up AWS
+
+### 3. Sign Up for AWS Free Tier
+
+- Create an AWS account at AWS Free Tier.
+- Verify your email and details.
+
+### 4. Configure EC2 for AWS
+
+- Navigate to the EC2 Dashboard and launch an instance:
+- Select Amazon Linux 2 or Ubuntu as the AMI.
+- Choose the t2.micro instance type (free tier eligible).
+- Set up and download key pair _for tutorial purposes, we will call this **my-app-key**_
+- Configure security groups:
+- Allow inbound traffic for SSH (port 22), HTTP (port 80), and custom ports 3000 and 4000 (or whatever ports you have set for your client and server).
+
+**Key Pair Creation Options:**
+
+- Name your key pair (e.g., "my-ec2-key")
+- Choose file format:
+
+- &nbsp;&nbsp;&nbsp;&nbsp;.pem (OpenSSH, Linux/Mac)
+- &nbsp;&nbsp;&nbsp;&nbsp;.ppk (PuTTY, Windows)
+
+### 5. Set Up AWS CLI
+
+Install AWS CLI on your local machine:
+
+```bash
+ curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+ sudo installer -pkg AWSCLIV2.pkg -target /
+```
+
+Verify the installation:
+
+```bash
+ aws --version
+```
+
+### 6. Configure AWS CLI to EC2 Instance
+
+Configure your AWS credentials:
+
+```bash
+aws configure
+```
+
+- Enter your AWS access key, secret key, default region, and output format (JSON).
+
+**We continue this in step 10, though jump to that step if you wish to configure your EC2 instance first.**
+
+## Phase 3: Apply Docker
+
+### 7. Set Up Docker Files
+
+NOTE: Depending on your setup these files may look different
+
+Next, we will delve into setting up the docker files. You may find that when running this locally, you may have to change some things for Production; so for example, locally I set up **RUN npm install -g nodemon** for local container, but this is not needed in Production.
+
+**Client Dockerfile (Next.js):**
+Create a file called **Dockerfile** Put this under your client root, so for example: /client/DockerFile
+
+I like to have two Docker files, one for local builds as one for production, which I neame **Dockerfile.prod**.
+
+```bash
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy application code and build
+COPY . .
+RUN npm run build
+
+FROM node:18-alpine AS runner
+
+WORKDIR /app
+
+# Set environment to production
+ENV NODE_ENV production
+
+# Copy built files
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package*.json ./package.json
+COPY --from=builder /app/tsconfig.json ./tsconfig.json
+COPY --from=builder /app/next.config.mjs ./next.config.mjs // Setting this helped for deployment to EC2
+
+# Install only production dependencies
+RUN npm install --production
+
+EXPOSE 3000
+
+# Start the app
+CMD ["npm", "start"]
+
+```
+
+**Server Dockerfile (Node.js):**
+Create a file called **Dockerfile** Put this under your server root, so for example: /server/DockerFile
+
+```bash
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy application code
+COPY . .
+
+EXPOSE 4000
+
+# Start the server
+CMD ["node", "server.js"]
+```
+
+### 8. Set Up Docker Compose
+
+For this purposes we will use docker compose, create a **docker-compose.yml** file in the root:
+
+_If unsure what these steps do, please have a read of the Docker Compose docs or other information online. Your file may differ to this._
+
+```bash
+
+version: "3.9"
+
+services:
+  nextjs-app:
+    build:
+      context: ./client
+      dockerfile: Dockerfile // or Dockerfile.prod if tyou named that
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET} // Or whatever ENVs you have for your frontend
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
+    env_file:
+      - .env
+     networks:
+      - app-network
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile // or Dockerfile.prod if tyou named that
+    ports:
+      - "4000:4000"
+    environment:
+      - API_URL=${API_URL} // Or whatever ENVs you have for your frontend
+    env_file:
+      - .env
+    networks:
+      - app-network
+
+```
+
+## Phase 4: Deploy
+
+### 9. Create a Deploy Script
+
+This is optional and there are different ways you could do this. For example, you could set up a Github Actions workflow. For this tutorial, have created a **deploy.sh** script to automate updates.
+
+What I like to do on this script is also set my environment variables on here, just make sure that if you do and security is important, then make sure this deploy script is in your **.gitignore** file.
+
+```bash
+#!/bin/bash
+
+// 1.
+EC2_PUBLIC_IP="<PUBLIC_IP>"
+
+set -e
+
+// 2.
+cat <<EOF > .env
+NEXTAUTH_SECRET=my_secret
+NEXTAUTH_URL=http://${EC2_PUBLIC_IP}:3000
+NEXT_PUBLIC_API_URL=http://${EC2_PUBLIC_IP}:4000
+JWT_SECRET=jwt_secret
+API_URL=http://${EC2_PUBLIC_IP}:4000
+API_SECRET=some_api_secret
+FRONTEND_URL=http://${EC2_PUBLIC_IP}:3000
+NODE_ENV=production
+EOF
+
+// 3.
+if ! git pull origin main; then
+    echo "Failed to pull latest changes from git"
+    exit 1
+fi
+
+// 4.
+docker-compose down
+
+docker system prune -f
+
+//5.
+if ! docker-compose pull; then
+    echo "Failed to pull docker images"
+    exit 1
+fi
+
+if ! docker-compose up -d --build; then
+    echo "Failed to bring up containers"
+    exit 1
+fi
+
+//6.
+docker-compose ps
+docker-compose logs nextjs-app
+
+echo "Deployment complete!"
+
+```
+
+Overview of the script:
+
+# 1: Get EC2 Public IP
+
+You will need this not only for the env vars but for the deployment futher down. Access you instance on AWS EC2 and look for the public IPV4 url, (for example 54.123.12.11) and make a copy. You can also try: this in step 1 instead: **EC2_PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)**
+
+# 2: Set up your env vars
+
+Set up your env vars, note the use of EC2_PUBLIC_IP here.
+
+# 3: Pull latest commit
+
+I like to pull the latest version of the repo here - we will delve into this in the Deploy phase.
+
+4. Docker clean Up
+   I like to do a bit of Docker clean here
+
+5. Docker build
+   You don't need to do error handling here, but I like to just in case.
+
+6. Docker logs
+   Can also add docker logs if you wish.
+
+- Make the script executable:
+
+```bash
+chmod +x deploy.sh
+
+```
+
+### 10. Connect to your EC2 instance via SSH
+
+Open up a terminal and copy your project files to the EC2 instance.
+
+To do this you will need
+
+- Your key pair you created in step 4.
+- Your EC2 Public IP address, you got from the last step.
+
+- SSH into the instance:
+
+```bash
+ssh -i my-ec2-key.pem ec2-user@<your-ec2-ip>
+
+```
+
+- Update and install required dependencies:
+
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y docker.io docker-compose git
+
+```
+
+- Start and enable Docker:
+
+```bash
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -aG docker $USER
+
+```
+
+- Log out and log back in for the Docker group permissions to take effect.
+
+**NOTE - You may run into SSH authentication isues, if you do you may need to create a SSH key in your GitHUb.**
+
+### 11. Clone Repository
+
+- Make a copy of the **deploy.sh** script into the folder you are in.
+- Make sure your repo is uptodate and in the instance and then clone your repo (hence we do a copy of the script above as your deploy script will not be in repo if in gitignore).
+
+```bash
+git clone https://github.com/your-repo.git
+
+```
+
+### 12. Deploy Script and Repo to EC2 Instance
+
+- Exit the instance and then copy your project files to the EC2 instance:
+
+```bash
+scp -i my-ec2-key.pem -r ./your-repo ec2-user@<your-ec2-ip>:~/your-repo
+
+```
+
+- SSH into the instance again:
+
+```bash
+ssh -i my-ec2-key.pem ec2-user@<your-ec2-ip>
+
+```
+
+### 11. Run Deployment
+
+Navigate to the project directory:
+
+```bash
+cd /your-repo
+
+```
+
+- Run the deployment script:
+
+Assuming as you are now in /your_repo and you need to access the script one folder previously, you would use ~
+
+```bash
+~/deploy.sh
+
+```
+
+- Verify that the containers are running:
+
+```bash
+docker-compose ps
+
+```
+
+### Test your application:
+
+- Client: http://<your-ec2-ip>:3000
+- Server: http://<your-ec2-ip>:4000
+
+### Conclusion
+
+You’ve successfully deployed your Next.js and Node.js applications to AWS EC2 using Docker.
+This setup ensures a robust and scalable architecture for your project.

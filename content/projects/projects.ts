@@ -27,16 +27,15 @@ export const portfolioProjects: ProjectType[] = [
   },
   {
     image: "/uploads/Flights.png",
-    link: "https://github.com/JackDust24/hawk-flights",
+    link: "http://52.221.201.49:3000/",
     title: "Flight booking",
     description: "Demo project for booking fake flights.",
     clientInfo: "Personal project",
-    howToUse:
-      "In Progress - Soon to be deployed but can see code base on Github",
-    techStack: "Next.js, Node.js/Express",
-    deployedInfo: "Will be deployed to AWS, Docker",
+    howToUse: "Book a flight - this is just a demo, not a real booking system.",
+    techStack: "Next.js, Node.js/Express, Typescript, SQLLite",
+    deployedInfo: "Deploy with Docker in AWSD",
     clickable: true,
-    deployed: false,
+    deployed: true,
   },
   {
     image: "/uploads/BlueLogo.png",
