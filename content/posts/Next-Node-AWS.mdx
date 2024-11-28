@@ -297,26 +297,26 @@ echo "Deployment complete!"
 
 Overview of the script:
 
-# 1: Get EC2 Public IP
+- 1: Get EC2 Public IP
 
 You will need this not only for the env vars but for the deployment futher down. Access you instance on AWS EC2 and look for the public IPV4 url, (for example 54.123.12.11) and make a copy. You can also try: this in step 1 instead: **EC2_PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)**
 
-# 2: Set up your env vars
+- 2: Set up your env vars
 
 Set up your env vars, note the use of EC2_PUBLIC_IP here.
 
-# 3: Pull latest commit
+- 3: Pull latest commit
 
 I like to pull the latest version of the repo here - we will delve into this in the Deploy phase.
 
-4. Docker clean Up
-   I like to do a bit of Docker clean here
+- 4: Docker clean Up
+  I like to do a bit of Docker clean here
 
-5. Docker build
-   You don't need to do error handling here, but I like to just in case.
+- 5: Docker build
+  You don't need to do error handling here, but I like to just in case.
 
-6. Docker logs
-   Can also add docker logs if you wish.
+- 6: Docker logs
+  Can also add docker logs if you wish.
 
 - Make the script executable:
 
