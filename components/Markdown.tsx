@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import Image from "next/image";
 
 interface MarkdownPagesProps {
   content: string;
@@ -117,14 +118,14 @@ export function MarkdownPages({ content }: MarkdownPagesProps) {
 
         hr: () => <hr className="my-8 border-gray-800" />,
         img: ({ src, alt }) => (
-          <img
+          <Image
             src={src || ""}
             alt={alt || ""}
-            // style={{
-            //   objectFit: 'contain', // Ensures aspect ratio is preserved within bounds
-            //   width: '100%', // Stretches to fit parent, which Rnd controls
-            //   height: '100%',
-            // }}
+            style={{
+              objectFit: "contain", // Ensures aspect ratio is preserved within bounds
+              width: "100%", // Stretches to fit parent, which Rnd controls
+              height: "100%",
+            }}
             className="max-w-full h-auto rounded-lg shadow-lg my-6"
           />
         ),

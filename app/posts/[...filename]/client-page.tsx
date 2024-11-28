@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import ReactMarkdown from "react-markdown";
 import { format } from "date-fns";
 import { MarkdownPages } from "@/components/Markdown";
 
@@ -63,9 +62,6 @@ export default function PostClientPage({
           {formattedDate}
         </p>
       </div>
-      {/* <ReactMarkdown className="text-base leading-relaxed">
-          {content}
-        </ReactMarkdown> */}
       <div className="prose dark:prose-dark w-full max-w-none">
         <MarkdownPages content={content} />
       </div>

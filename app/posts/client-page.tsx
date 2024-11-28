@@ -11,7 +11,6 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import BlueLogo from "@/public/BlueLogo.png";
 import ReactMarkdown from "react-markdown";
 
 interface Post {
