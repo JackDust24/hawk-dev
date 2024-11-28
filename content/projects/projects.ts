@@ -33,7 +33,7 @@ export const portfolioProjects: ProjectType[] = [
     clientInfo: "Personal project",
     howToUse: "Book a flight - this is just a demo, not a real booking system.",
     techStack: "Next.js, Node.js/Express, Typescript, SQLLite",
-    deployedInfo: "Deploy with Docker in AWSD",
+    deployedInfo: "Deployed with Docker in AWS",
     clickable: true,
     deployed: true,
   },
