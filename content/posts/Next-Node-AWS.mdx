@@ -13,11 +13,11 @@ date: 2024-11-27T12:00:00.000Z
 
 ## Pre-assumptions:
 
-You already know how to set up a Next.js, Node.js and Express.
+You already know how to set up and create web applications with Next.js, Node.js and Express.
 
-_This is NOT a walkthrough of creation of a Next.js and Node.js app; though you can look more online for a tutorial if you need._
+_This is NOT a walkthrough on how to create a Next.js and Node.js application; though you can look more online for a tutorial if you need._
 
-Preferred, but not essential, familair with AWS, EC2 and Docker. Will delve into each, but nor is this a detailed deep look into them.
+Preferred, but not essential - familiar with AWS, EC2 and Docker. Will delve into each, but nor is this a detailed deep look into them.
 
 Deploying a modern web application can seem challenging, but with a structured approach, you can deploy a Next.js (client-side) and Node.js (server-side) application on AWS EC2 using Docker without too much hassle. A troubleshooting guide is at the end of this piece if you run into issues.
 This guide walks you through the process step-by-step.
@@ -38,7 +38,7 @@ This guide walks you through the process step-by-step.
 
 ### 2. Set Up Server side with Node.js and Express
 
-You may wish to go the route of a static generated build, for this demo, have gonne for SSR.
+You may wish to go the route of a static generated build, for this demo, have gone for SSR.
 
 Create your server directory and initialize a Node.js app:
 
@@ -136,7 +136,7 @@ Next, we will delve into setting up the docker files. You may find that when run
 **Client Dockerfile (Next.js):**
 Create a file called **Dockerfile** Put this under your client root, so for example: /client/DockerFile
 
-I like to have two Docker files, one for local builds as one for production, which I neame **Dockerfile.prod**.
+I like to have two Docker files, one for local builds as one for production, which I named **Dockerfile.prod**.
 
 ```bash
 FROM node:18-alpine AS builder
@@ -210,7 +210,7 @@ services:
   nextjs-app:
     build:
       context: ./client
-      dockerfile: Dockerfile // or Dockerfile.prod if tyou named that
+      dockerfile: Dockerfile // or Dockerfile.prod if you named it that
     ports:
       - "3000:3000"
     environment:
@@ -225,7 +225,7 @@ services:
   server:
     build:
       context: ./server
-      dockerfile: Dockerfile // or Dockerfile.prod if tyou named that
+      dockerfile: Dockerfile // or Dockerfile.prod if you named it that
     ports:
       - "4000:4000"
     environment:
@@ -299,7 +299,7 @@ Overview of the script:
 
 - 1: Get EC2 Public IP
 
-You will need this not only for the env vars but for the deployment futher down. Access you instance on AWS EC2 and look for the public IPV4 url, (for example 54.123.12.11) and make a copy. You can also try: this in step 1 instead: **EC2_PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)**
+You will need this not only for the env vars but for the deployment further down. Access you instance on AWS EC2 and look for the public IPV4 url, (for example 54.123.12.11) and make a copy. You can also try: this in step 1 instead: **EC2_PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)**
 
 - 2: Set up your env vars
 
@@ -360,7 +360,7 @@ sudo usermod -aG docker $USER
 
 - Log out and log back in for the Docker group permissions to take effect.
 
-**NOTE - You may run into SSH authentication isues, if you do you may need to create a SSH key in your GitHUb.**
+**NOTE - You may run into SSH authentication issues, if you do you may need to create a SSH key in your GitHUb.**
 
 ### 11. Clone Repository
 
