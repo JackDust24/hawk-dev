@@ -23,7 +23,7 @@ export function NavLink(props: Omit<ComponentProps<typeof Link>, "classname">) {
     <Link
       {...props}
       className={cn(
-        "hover:text-primary-foreground text-primary-lighter h-100 flex items-center md:text-2xl focus-visible:bg-secondary focus-visible:text-secondary-foreground",
+        "hover:text-primary-foreground text-primary-lighter h-100 flex items-center text-sm md:text-2xl focus-visible:bg-secondary focus-visible:text-secondary-foreground",
         pathname === props.href && "text-primary-foreground"
       )}
     />

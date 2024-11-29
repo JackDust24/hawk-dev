@@ -42,7 +42,7 @@ export default function RootLayout({
         <div className="min-h-screen flex flex-col">
           <header className="w-full fixed top-0 left-0 z-50 bg-primary-main shadow-md">
             <Nav className="container flex justify-between">
-              <div className="flex space-x-4 relative">
+              <div className="flex space-x-3 sm:space-x-4 relative">
                 <div className="flex top-0">
                   <Link href="/" passHref>
                     <Image
@@ -62,10 +62,8 @@ export default function RootLayout({
               </div>
             </Nav>
           </header>
-          <main className="flex-grow py-[60px] mt-[40px] px-6 md:px-0">
-            {children}
-          </main>
-          <footer className="row-start-3 w-full flex text-white gap-6 flex-wrap items-center justify-center  bg-black">
+          <main className="flex-grow pt-[100px] px-6 md:px-0">{children}</main>
+          <footer className="row-start-3 w-full flex text-white gap-6 flex-wrap items-center justify-center bg-black">
             <div className="pl-8">
               © {new Date().getFullYear()} HawkDev. All rights reserved.
             </div>

@@ -22,17 +22,17 @@ export function MarkdownPages({ content }: MarkdownPagesProps) {
     <ReactMarkdown
       components={{
         h1: ({ children }) => (
-          <h1 className="text-3xl md:text-3xl font-bold text-gray-900">
+          <h1 className="text-center sm:text-left text-2xl md:text-3xl font-bold text-gray-900">
             {children}
           </h1>
         ),
         h2: ({ children }) => (
-          <h2 className="text-2xl font-semibold text-gray-900 mb-1">
+          <h2 className="text-center sm:text-left text-xl md:text-2xl font-semibold text-gray-900 mb-1">
             {children}
           </h2>
         ),
         h3: ({ children }) => (
-          <h3 className="text-xl font-semibold text-gray-700 mb-3">
+          <h3 className="text-center sm:text-left text-xl font-semibold text-gray-700 mb-3">
             {children}
           </h3>
         ),

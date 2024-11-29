@@ -49,7 +49,7 @@ export default async function PostPage({
   const content = parsedFile.content;
 
   return (
-    <div className="p-10 mt-10 max-w-5xl bg-primary-lighter mx-auto rounded-lg shadow-lg">
+    <div className="p-4 sm:p-10 mt-10 max-w-5xl bg-primary-lighter mx-auto rounded-lg shadow-lg mb-6">
       <PostClientPage frontmatter={frontmatter} content={content} />
     </div>
   );

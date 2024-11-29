@@ -26,11 +26,11 @@ export default function PostClientPage({
   return (
     <>
       <div className="flex flex-col gap-4 pt-4">
-        <h2 className="w-full relative mb-8 text-4xl font-extrabold tracking-normal text-center title-font">
+        <h2 className="w-full relative mb-4 sm:mb-8 text-2xl sm:text-4xl font-extrabold tracking-normal text-center title-font">
           <span>{title}</span>
         </h2>
         {subtitle && (
-          <h2 className="w-full relative mb-8 text-2xl font-extrabold tracking-normal text-center title-font">
+          <h2 className="w-full relative mb-8 text-xl sm:text-2xl font-extrabold tracking-normal text-center title-font">
             <span>{subtitle}</span>
           </h2>
         )}
@@ -43,13 +43,13 @@ export default function PostClientPage({
               alt={title}
               width={500}
               height={500}
-              className="relative z-10 mb-14 block rounded-lg w-full h-auto opacity-100"
+              className="relative z-10 mb-8 sm:mb-12 block rounded-lg w-full h-auto opacity-100"
             />
           </div>
         </div>
       )}
 
-      <div className="flex items-center justify-center mb-16">
+      <div className="flex items-center justify-center mb-8 sm:mb-12">
         {poster && (
           <>
             {poster}
