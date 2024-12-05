@@ -38,14 +38,15 @@ export const portfolioProjects: ProjectType[] = [
     deployed: true,
   },
   {
-    image: "/uploads/BlueLogo.png",
+    image: "/uploads/AI_Chat.png",
     link: "https://github.com/JackDust24/hawk-websockets",
     title: "Loyalty Program",
-    description: "Loyalty Program SaaS and chat application.",
+    description: "Loyalty Program SaaS with AI & chat application.",
     clientInfo: "Personal project",
     howToUse:
       "In Progress - Will be deployed at later date, but can see code base on Github",
-    techStack: "React, Node.js/Express, MongoDB, websockets, React Native",
+    techStack:
+      "React, Node.js/Express, OpenAI, MongoDB, websockets, React Native",
     deployedInfo: "Will be deployed to AWS",
     clickable: true,
     deployed: false,
