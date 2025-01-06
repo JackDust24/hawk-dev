@@ -13,6 +13,18 @@ export type ProjectType = {
 
 export const portfolioProjects: ProjectType[] = [
   {
+    image: "/uploads/WFH_Studio.png",
+    link: "https://wfh-request-system.vercel.app",
+    title: "Work From Home Request System",
+    description: "A Back Office for HR to manage Work From Home requests.",
+    clientInfo: "Mock Application",
+    howToUse: "Login and request time off",
+    techStack: "React, Typescript",
+    deployedInfo: "Deployed on Vercel",
+    clickable: true,
+    deployed: true,
+  },
+  {
     image: "/uploads/Trips.png",
     link: "https://thai-trips.vercel.app/",
     title: "Hiking Trip",
@@ -136,6 +148,19 @@ export const portfolioProjects: ProjectType[] = [
     techStack: "React Native",
     deployedInfo: "Apple Store and Google Play",
     clickable: true,
+    deployed: false,
+  },
+  {
+    image: "/uploads/BlueLogo.png",
+    link: "/",
+    title: "Profile Application",
+    description: "Application for registering to a site.",
+    clientInfo: "For learning purposes",
+    howToUse:
+      "Not in use at the moment - IN PROGRESS - will be deployed at later date",
+    techStack: "HTMX, Golang, TEMPL",
+    deployedInfo: "N/A",
+    clickable: false,
     deployed: false,
   },
 ];
