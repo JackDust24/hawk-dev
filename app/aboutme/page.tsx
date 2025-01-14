@@ -28,14 +28,15 @@ export default function AboutPage() {
       <ul className="list-disc pl-6 text-primary-lighter">
         <li>
           Frontend Development: React, Next.js, TailwindCSS, Redux, TypeScript,
-          JavaScript
+          JavaScript, HTMX
         </li>
         <li>
           Backend Development: Node.js, Express, PostgreSQL, MongoDB, RESTful
-          API, websockets
+          API, websockets, Golang
         </li>
+        <li>Fullstack Development: React Native, Swift, Cloudfare, AWS</li>
         <li>
-          Fullstack Development: React Native, Swift, Cloudfare, AWS Amplify
+          Blockchain & AI Development: Solidity, Wagmi, Ethers, NFTs, OpenAI
         </li>
         <li>Project Management: Agile methodologies, Jira, Confluence</li>
         <li>

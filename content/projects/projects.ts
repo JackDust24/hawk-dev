@@ -25,6 +25,19 @@ export const portfolioProjects: ProjectType[] = [
     deployed: true,
   },
   {
+    image: "/uploads/YellowLogo.png",
+    link: "https://github.com/JackDust24/user-mgmt",
+    title: "User Management",
+    description: "User Management System with Admin Dashboard.",
+    clientInfo: "Personal project",
+    howToUse:
+      "In Progress - Instructions to be added, but can see code base on Github",
+    techStack: "HTMX, Golang, TEMPL, Postgres, TailwindCSS",
+    deployedInfo: "Vercel",
+    clickable: true,
+    deployed: false,
+  },
+  {
     image: "/uploads/Trips.png",
     link: "https://thai-trips.vercel.app/",
     title: "Hiking Trip",
