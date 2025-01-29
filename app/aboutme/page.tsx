@@ -34,7 +34,7 @@ export default function AboutPage() {
           Backend Development: Node.js, Express, PostgreSQL, MongoDB, RESTful
           API, websockets, Golang
         </li>
-        <li>Fullstack Development: React Native, Swift, Cloudfare, AWS</li>
+        <li>Fullstack Development: React Native, Swift, AWS, Azure</li>
         <li>
           Blockchain & AI Development: Solidity, Wagmi, Ethers, NFTs, OpenAI
         </li>
