@@ -30,11 +30,19 @@ export default function PortfolioPage() {
               </CardTitle>
               <div className="image-container w-[300px] h-[200px] relative overflow-hidden mt-4">
                 <Image
-                  src={project.image}
+                  src={
+                    project.image.startsWith("/")
+                      ? project.image
+                      : `/${project.image}`
+                  }
                   alt={`Project image ${index + 1}`}
-                  layout="fill"
-                  objectFit="contain"
-                  className="rounded-lg"
+                  fill
+                  style={{ objectFit: "contain" }}
+                  className="rounded-lg object-contain"
+                  priority={index < 2}
+                  loading={index >= 2 ? "lazy" : undefined}
+                  placeholder="blur"
+                  blurDataURL="/image-loading-placeholder.webp"
                 />
               </div>
             </CardHeader>

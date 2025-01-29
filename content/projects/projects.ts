@@ -13,7 +13,7 @@ export type ProjectType = {
 
 export const portfolioProjects: ProjectType[] = [
   {
-    image: "/uploads/WFH_Studio.png",
+    image: "/uploads/WFH_Studio.webp",
     link: "https://wfh-request-system.vercel.app",
     title: "Work From Home Request System",
     description: "A Back Office for HR to manage Work From Home requests.",
@@ -25,7 +25,7 @@ export const portfolioProjects: ProjectType[] = [
     deployed: true,
   },
   {
-    image: "/uploads/YellowLogo.png",
+    image: "/uploads/YellowLogo.webp",
     link: "https://github.com/JackDust24/user-mgmt",
     title: "User Management",
     description: "User Management System with Admin Dashboard.",
@@ -38,7 +38,7 @@ export const portfolioProjects: ProjectType[] = [
     deployed: false,
   },
   {
-    image: "/uploads/Trips.png",
+    image: "/uploads/Trips.webp",
     link: "https://thai-trips.vercel.app/",
     title: "Hiking Trip",
     description: "Mini e-Commerce site for travel and dashboard.",
@@ -51,7 +51,7 @@ export const portfolioProjects: ProjectType[] = [
     deployed: true,
   },
   {
-    image: "/uploads/Flights.png",
+    image: "/uploads/Flights.webp",
     link: "http://52.221.201.49:3000/",
     title: "Flight booking",
     description: "Demo project for booking fake flights.",
@@ -63,7 +63,7 @@ export const portfolioProjects: ProjectType[] = [
     deployed: true,
   },
   {
-    image: "/uploads/AI_Chat.png",
+    image: "/uploads/AI_Chat.webp",
     link: "https://github.com/JackDust24/hawk-websockets",
     title: "Loyalty Program",
     description: "Loyalty Program SaaS with AI & chat application.",
@@ -77,7 +77,7 @@ export const portfolioProjects: ProjectType[] = [
     deployed: false,
   },
   {
-    image: "/uploads/Equinox.png",
+    image: "/uploads/Equinox.webp",
     link: "https://equinoxmarketing.com/",
     title: "Hotel Loyalty Program",
     description: "Website for Loyalty Program built with WordPress.",
@@ -89,7 +89,7 @@ export const portfolioProjects: ProjectType[] = [
     deployed: true,
   },
   {
-    image: "/uploads/BlueLogo.png",
+    image: "/uploads/YellowLogo.webp",
     link: "https://beta.green-layer.com/",
     title: "B2B e-commerce site",
     description: "B2B e-Commerce site for users to create own designs",
@@ -101,7 +101,7 @@ export const portfolioProjects: ProjectType[] = [
     deployed: false,
   },
   {
-    image: "/uploads/FriendsAttack.png",
+    image: "/uploads/FriendsAttack.webp",
     link: "https://github.com/JackDust24/FriendsAttack",
     title: "iOS AR shootem up",
     description: "Take photos of your friend and shootem up in AR setting",
@@ -113,7 +113,7 @@ export const portfolioProjects: ProjectType[] = [
     deployed: false,
   },
   {
-    image: "/uploads/BlueLogo.png",
+    image: "/uploads/YellowLogo.webp",
     link: "https://github.com/JackDust24/hawk-price-feeds",
     title: "Price Feed",
     description: "Price feed comaprison.",
@@ -126,7 +126,7 @@ export const portfolioProjects: ProjectType[] = [
     deployed: false,
   },
   {
-    image: "/uploads/BlueLogo.png",
+    image: "/uploads/YellowLogo.webp",
     link: "https://github.com/JackDust24/hawk-ntfs",
     title: "NFT Marketplace",
     description: "NFT Marketplace fullstack project.",
@@ -138,7 +138,7 @@ export const portfolioProjects: ProjectType[] = [
     deployed: false,
   },
   {
-    image: "/uploads/TodayX.png",
+    image: "/uploads/TodayX.webp",
     link: "https://github.com/JackDust24/TodayX",
     title: "TodayX",
     description: "Weather and Productivity Mobile App.",
@@ -151,7 +151,7 @@ export const portfolioProjects: ProjectType[] = [
     deployed: false,
   },
   {
-    image: "/uploads/Interpass.png",
+    image: "/uploads/Interpass.webp",
     link: "https://github.com/JackDust24/interpass",
     title: "Interpass Mobile app",
     description: "Information mobile app for education department.",
@@ -164,7 +164,7 @@ export const portfolioProjects: ProjectType[] = [
     deployed: false,
   },
   {
-    image: "/uploads/BlueLogo.png",
+    image: "/uploads/YellowLogo.webp",
     link: "/",
     title: "Profile Application",
     description: "Application for registering to a site.",

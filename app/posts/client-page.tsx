@@ -33,12 +33,13 @@ interface PostsClientPageProps {
 export default function PostsClientPagee({ posts }: PostsClientPageProps) {
   return (
     <>
-      {posts.map((post) => {
+      {posts.map((post, index) => {
         const date = new Date(post.date);
         let formattedDate = "";
         if (!isNaN(date.getTime())) {
           formattedDate = format(date, "MMM dd, yyyy");
         }
+
         return (
           <Link
             href={`/posts/` + post._sys.breadcrumbs.join("/")}
@@ -51,10 +52,18 @@ export default function PostsClientPagee({ posts }: PostsClientPageProps) {
               <CardHeader>
                 <div className="relative w-full h-48">
                   <Image
-                    src={post.heroImg}
+                    src={
+                      post.heroImg.startsWith("/")
+                        ? post.heroImg
+                        : `/${post.heroImg}`
+                    }
                     alt={post.title}
                     fill
+                    style={{ objectFit: "contain" }}
                     className="rounded-t-md object-cover"
+                    priority={index < 3}
+                    placeholder="blur"
+                    blurDataURL="/image-loading-placeholder.webp"
                   />
                 </div>
                 <CardTitle className="text-xl font-bold mt-4 text-[var(--card-text)] line-clamp-2 h-[3.4rem] overflow-hidden">
