@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { format } from "date-fns";
 import { MarkdownPages } from "@/components/Markdown";
@@ -20,8 +20,9 @@ export default function PostClientPage({
   content,
 }: ClientPostProps) {
   const { title, subtitle, heroImg, poster, date } = frontmatter;
-
   const formattedDate = date ? format(new Date(date), "MMM dd, yyyy") : "";
+
+  const [isImageLoading, setIsImageLoading] = useState(true);
 
   return (
     <>
@@ -35,15 +36,22 @@ export default function PostClientPage({
           </h2>
         )}
       </div>
+
       {heroImg && (
         <div className="px-4 w-full">
           <div className="relative max-w-2xl lg:max-w-5xl mx-auto">
+            {isImageLoading && (
+              <div className="w-full h-64 bg-gray-300 dark:bg-gray-700 animate-pulse rounded-lg" />
+            )}
             <Image
               src={heroImg}
               alt={title}
               width={500}
               height={500}
-              className="relative z-10 mb-8 sm:mb-12 block rounded-lg w-full h-auto opacity-100"
+              className={`relative z-10 mb-8 sm:mb-12 block rounded-lg w-full h-auto transition-opacity duration-500 ${
+                isImageLoading ? "opacity-0" : "opacity-100"
+              }`}
+              onLoad={() => setIsImageLoading(false)}
             />
           </div>
         </div>

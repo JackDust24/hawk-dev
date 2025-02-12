@@ -2,7 +2,7 @@
 import { format } from "date-fns";
 import Link from "next/link";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardHeader,
@@ -31,6 +31,8 @@ interface PostsClientPageProps {
 }
 
 export default function PostsClientPagee({ posts }: PostsClientPageProps) {
+  const [isImageLoading, setIsImageLoading] = useState(true);
+
   return (
     <>
       {posts.map((post, index) => {
@@ -47,10 +49,13 @@ export default function PostsClientPagee({ posts }: PostsClientPageProps) {
           >
             <Card
               key={post.title}
-              className="bg-[var(--card-bg)] border border-[var(--card-border)] shadow-lg shadow-[var(--card-border)] rounded-md transform hover:scale-105 transition-transform duration-200"
+              className={`group relative p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-md rounded-lg overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:border-blue-500 cursor-pointer flex flex-col h-full`}
             >
-              <CardHeader>
-                <div className="relative w-full h-48">
+              <CardHeader className="relative">
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-md shadow-gray-500/40">
+                  {isImageLoading && (
+                    <div className="absolute inset-0 bg-gray-300 dark:bg-gray-700 animate-pulse" />
+                  )}
                   <Image
                     src={
                       post.heroImg.startsWith("/")
@@ -59,26 +64,28 @@ export default function PostsClientPagee({ posts }: PostsClientPageProps) {
                     }
                     alt={post.title}
                     fill
-                    style={{ objectFit: "contain" }}
-                    className="rounded-t-md object-cover"
+                    className={`object-cover transition-opacity duration-500 ${
+                      isImageLoading ? "opacity-0" : "opacity-100"
+                    }`}
+                    onLoad={() => setIsImageLoading(false)}
                     priority={index < 3}
-                    placeholder="blur"
-                    blurDataURL="/image-loading-placeholder.webp"
                   />
                 </div>
-                <CardTitle className="text-xl font-bold mt-4 text-[var(--card-text)] line-clamp-2 h-[3.4rem] overflow-hidden">
+              </CardHeader>
+
+              <CardContent className="flex-grow">
+                <CardTitle className="text-lg font-bold text-gray-900 dark:text-white line-clamp-2 h-[3.4rem] overflow-hidden mb-4">
                   {post.title}
                 </CardTitle>
-                <CardDescription className="text-[var(--card-text)] line-clamp-2 h-[3rem] overflow-hidden">
+                <CardDescription className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 h-[3rem] overflow-hidden">
                   {post.subtitle}
                 </CardDescription>
-              </CardHeader>
-              <CardContent className="py-1 text-[var(--card-text)]">
-                <div className="line-clamp-3">
+                <div className="p-1 mb-1 text-sm line-clamp-4 text-gray-700 dark:text-gray-400 bg-gray-600 rounded-xl bg-opacity-10">
                   <ReactMarkdown>{post.excerpt}</ReactMarkdown>
                 </div>
               </CardContent>
-              <CardFooter className="px-4 py-2 flex justify-between text-[var(--card-text)]">
+
+              <CardFooter className="mt-auto px-4 py-2 flex justify-between text-sm text-gray-700 dark:text-gray-300">
                 <span>{formattedDate}</span>
                 <span>{post.poster}</span>
               </CardFooter>
