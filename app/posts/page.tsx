@@ -1,53 +1,71 @@
-import PostsPage from "./client-page";
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
+import type { Metadata } from "next";
+import { format } from "date-fns";
+import Link from "next/link";
+import { getPosts } from "@/lib/posts";
 
-function getPosts() {
-  const postsDirectory = path.join(process.cwd(), "content/posts");
-  const filenames = fs.readdirSync(postsDirectory);
+export const metadata: Metadata = {
+  title: "Writing",
+  description: "Notes on delivery, ecommerce, AI agents, and shipping software.",
+};
 
-  const posts = filenames.map((filename) => {
-    const filePath = path.join(postsDirectory, filename);
-    const fileContents = fs.readFileSync(filePath, "utf8");
-
-    const { data, content } = matter(fileContents);
-
-    return {
-      id: filename.replace(/\.mdx$/, ""),
-      title: data.title,
-      subtitle: data.subtitle,
-      date: data.date,
-      excerpt: data.excerpt,
-      poster: data.poster,
-      heroImg: data.heroImg,
-      content,
-      _sys: {
-        breadcrumbs: [filename.replace(/\.mdx$/, "")], // Simulate breadcrumb behavior
-      },
-    };
-  });
-
-  return posts;
-}
-
-async function Home() {
+export default function PostsPage() {
   const posts = getPosts();
 
   if (!posts.length) {
-    return <div>No posts found.</div>;
+    return (
+      <div className="mx-auto max-w-5xl px-6 py-16 text-muted">
+        No posts found.
+      </div>
+    );
   }
 
   return (
-    <div className="py-6 max-w-5xl mx-auto">
-      <h2 className="text-3xl font-bold text-start mb-8 text-primary-foreground">
-        Posts
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <PostsPage posts={posts} />
+    <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20">
+      <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
+        Writing
+      </p>
+      <h1 className="mt-3 text-3xl font-medium tracking-tight sm:text-5xl">
+        Notes on build and delivery
+      </h1>
+      <p className="mt-4 max-w-2xl text-base text-muted">
+        How work gets from a brief to production — and the agents, commerce,
+        and platforms in between.
+      </p>
+      <div className="mt-10 border-t border-line">
+        {posts.map((post) => {
+          const date = new Date(post.date);
+          const formatted = Number.isNaN(date.getTime())
+            ? ""
+            : format(date, "MMM d, yyyy");
+
+          return (
+            <Link
+              key={post.id}
+              href={`/posts/${post._sys.breadcrumbs.join("/")}`}
+              className="group block border-b border-line py-8 transition-colors hover:border-accent/40"
+            >
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+                <h2 className="text-xl font-medium text-ink group-hover:text-accent sm:text-2xl">
+                  {post.title}
+                </h2>
+                <span className="shrink-0 font-mono text-xs text-muted">
+                  {formatted}
+                </span>
+              </div>
+              {post.subtitle && (
+                <p className="mt-2 text-sm text-muted sm:text-base">
+                  {post.subtitle}
+                </p>
+              )}
+              {post.excerpt && (
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
+                  {post.excerpt.replace(/\s+/g, " ").trim()}
+                </p>
+              )}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
 }
-
-export default Home;

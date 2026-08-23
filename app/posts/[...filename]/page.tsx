@@ -1,19 +1,19 @@
 import fs from "fs";
 import path from "path";
 import matter, { GrayMatterFile } from "gray-matter";
-import React from "react";
+import type { Metadata } from "next";
 import PostClientPage from "./client-page";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
 
 export async function generateStaticParams() {
-  const filenames = fs.readdirSync(postsDirectory);
+  const filenames = fs
+    .readdirSync(postsDirectory)
+    .filter((filename) => filename.endsWith(".mdx"));
 
-  const paths = filenames.map((filename) => ({
+  return filenames.map((filename) => ({
     filename: filename.replace(/\.mdx$/, "").split("/"),
   }));
-
-  return paths;
 }
 
 type Frontmatter = {
@@ -22,7 +22,27 @@ type Frontmatter = {
   heroImg?: string;
   poster?: string;
   date?: string;
+  excerpt?: string;
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { filename: string[] };
+}): Promise<Metadata> {
+  const filePath = path.join(
+    postsDirectory,
+    `${params.filename.join("/")}.mdx`
+  );
+  const fileContent = fs.readFileSync(filePath, "utf-8");
+  const parsedFile = matter(fileContent) as GrayMatterFile<string>;
+  const frontmatter = parsedFile.data as Frontmatter;
+
+  return {
+    title: frontmatter.title,
+    description: frontmatter.excerpt || frontmatter.subtitle || frontmatter.title,
+  };
+}
 
 export default async function PostPage({
   params,
@@ -34,23 +54,16 @@ export default async function PostPage({
     `${params.filename.join("/")}.mdx`
   );
   const fileContent = fs.readFileSync(filePath, "utf-8");
-
-  // Parse the file content
   const parsedFile = matter(fileContent) as GrayMatterFile<string>;
-
-  // Validate or cast frontmatter to the expected type
   const frontmatter = parsedFile.data as Frontmatter;
 
-  // Check if the required fields are present (optional for runtime safety)
   if (!frontmatter.title) {
     throw new Error("Frontmatter must include a title.");
   }
 
-  const content = parsedFile.content;
-
   return (
-    <div className="p-4 sm:p-10 mt-10 max-w-5xl bg-white mx-auto rounded-lg shadow-lg mb-6">
-      <PostClientPage frontmatter={frontmatter} content={content} />
+    <div className="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+      <PostClientPage frontmatter={frontmatter} content={parsedFile.content} />
     </div>
   );
 }

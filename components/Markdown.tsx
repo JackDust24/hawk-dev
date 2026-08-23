@@ -18,66 +18,58 @@ export function MarkdownPages({ content }: MarkdownPagesProps) {
       return () => clearTimeout(timer);
     }
   }, [isCopied]);
+
   return (
     <ReactMarkdown
       components={{
         h1: ({ children }) => (
-          <h1 className="text-center sm:text-left text-2xl md:text-3xl font-bold text-gray-900">
+          <h1 className="text-2xl font-medium tracking-tight text-ink md:text-3xl">
             {children}
           </h1>
         ),
         h2: ({ children }) => (
-          <h2 className="text-center sm:text-left text-xl md:text-2xl font-semibold text-gray-900 mb-1">
+          <h2 className="mt-10 text-xl font-medium tracking-tight text-ink md:text-2xl">
             {children}
           </h2>
         ),
         h3: ({ children }) => (
-          <h3 className="text-center sm:text-left text-xl font-semibold text-gray-700 mb-3">
-            {children}
-          </h3>
+          <h3 className="mt-8 text-lg font-medium text-ink">{children}</h3>
         ),
         h4: ({ children }) => (
-          <h4 className="text-lg font-semibold text-gray-600 mb-3">
-            {children}
-          </h4>
+          <h4 className="mt-6 text-base font-medium text-ink">{children}</h4>
         ),
         p: ({ children }) => (
-          <p className="text-base text-gray-700">{children}</p>
+          <p className="text-base leading-relaxed text-muted">{children}</p>
         ),
         ul: ({ children }) => (
-          <ul className="pl-6 mb-6 space-y-2 text-gray-700  marker:text-gray-900 ">
+          <ul className="list-disc space-y-2 pl-6 text-muted marker:text-accent">
             {children}
           </ul>
         ),
         ol: ({ children }) => (
-          <ol className="list-decimal text-gray-700 marker:text-gray-900 pl-6 mb-6 space-y-2">
+          <ol className="list-decimal space-y-2 pl-6 text-muted marker:text-accent">
             {children}
           </ol>
         ),
         li: ({ children }) => (
-          <li className="text-base text-gray-700 marker:text-gray-90">
-            {children}
-          </li>
+          <li className="text-base leading-relaxed text-muted">{children}</li>
         ),
         blockquote: ({ children }) => (
-          <blockquote className="border-l-4 border-black pl-4 italic my-4">
+          <blockquote className="my-4 border-l-2 border-accent pl-4 italic text-muted">
             {children}
           </blockquote>
         ),
         a: ({ href, children }) => (
-          <a
-            href={href}
-            className="text-palette-greenlayer hover:text-palette-yellow underline"
-          >
+          <a href={href} className="text-accent underline hover:text-ink">
             {children}
           </a>
         ),
         strong: ({ children }) => (
-          <strong className="font-bold">{children}</strong>
+          <strong className="font-semibold text-ink">{children}</strong>
         ),
         em: ({ children }) => <em className="italic">{children}</em>,
         code: ({ children }) => (
-          <code className="bg-gray-800 rounded px-1 py-0.5 font-mono text-sm text-white">
+          <code className="rounded bg-surface px-1.5 py-0.5 font-mono text-sm text-ink">
             {children}
           </code>
         ),
@@ -102,49 +94,42 @@ export function MarkdownPages({ content }: MarkdownPagesProps) {
           };
 
           return (
-            <div className="relative group">
-              <pre className="bg-black rounded p-4 overflow-x-auto mb-6 text-white">
+            <div className="group relative">
+              <pre className="mb-6 overflow-x-auto rounded-lg border border-line bg-surface p-4 text-ink">
                 {children}
               </pre>
               <button
+                type="button"
                 onClick={handleCopy}
-                className="absolute top-2 right-2 bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute right-2 top-2 rounded bg-canvas px-2 py-1 font-mono text-xs text-ink opacity-0 transition-opacity group-hover:opacity-100"
               >
-                {isCopied ? "Copied!" : "Copy Code"}
+                {isCopied ? "Copied" : "Copy"}
               </button>
             </div>
           );
         },
-
-        hr: () => <hr className="my-8 border-gray-800" />,
+        hr: () => <hr className="my-8 border-line" />,
         img: ({ src, alt }) => (
           <Image
             src={src || ""}
             alt={alt || ""}
-            style={{
-              objectFit: "contain", // Ensures aspect ratio is preserved within bounds
-              width: "100%", // Stretches to fit parent, which Rnd controls
-              height: "100%",
-            }}
-            className="max-w-full h-auto rounded-lg shadow-lg my-6"
+            width={1200}
+            height={720}
+            className="my-6 h-auto max-w-full rounded-lg border border-line"
           />
         ),
         table: ({ children }) => (
-          <div className="overflow-x-auto mb-6">
-            <table className="min-w-full divide-y divide-gray-200">
-              {children}
-            </table>
+          <div className="mb-6 overflow-x-auto">
+            <table className="min-w-full divide-y divide-line">{children}</table>
           </div>
         ),
         th: ({ children }) => (
-          <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th className="px-4 py-3 text-left font-mono text-xs uppercase tracking-wider text-muted">
             {children}
           </th>
         ),
         td: ({ children }) => (
-          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-            {children}
-          </td>
+          <td className="px-4 py-3 text-sm text-muted">{children}</td>
         ),
       }}
     >

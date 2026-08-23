@@ -1,7 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import Image from "next/image";
+
 import { format } from "date-fns";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import { MarkdownPages } from "@/components/Markdown";
 
 interface ClientPostProps {
@@ -20,59 +22,48 @@ export default function PostClientPage({
   content,
 }: ClientPostProps) {
   const { title, subtitle, heroImg, poster, date } = frontmatter;
-  const formattedDate = date ? format(new Date(date), "MMM dd, yyyy") : "";
-
+  const formattedDate = date ? format(new Date(date), "MMM d, yyyy") : "";
   const [isImageLoading, setIsImageLoading] = useState(true);
 
   return (
-    <>
-      <div className="flex flex-col gap-4 pt-4">
-        <h2 className="w-full relative mb-4 sm:mb-8 text-2xl sm:text-4xl font-extrabold tracking-normal text-center title-font">
-          <span>{title}</span>
-        </h2>
-        {subtitle && (
-          <h2 className="w-full relative mb-8 text-xl sm:text-2xl font-extrabold tracking-normal text-center title-font">
-            <span>{subtitle}</span>
-          </h2>
-        )}
-      </div>
+    <article>
+      <Link
+        href="/posts"
+        className="font-mono text-xs uppercase tracking-wider text-muted transition-colors hover:text-accent"
+      >
+        Writing
+      </Link>
+      <h1 className="mt-4 text-3xl font-medium tracking-tight text-ink sm:text-5xl">
+        {title}
+      </h1>
+      {subtitle && (
+        <p className="mt-4 text-lg text-muted">{subtitle}</p>
+      )}
+      <p className="mt-6 font-mono text-xs text-muted">
+        {[poster, formattedDate].filter(Boolean).join(" — ")}
+      </p>
 
       {heroImg && (
-        <div className="px-4 w-full">
-          <div className="relative max-w-2xl lg:max-w-5xl mx-auto">
-            {isImageLoading && (
-              <div className="w-full h-64 bg-gray-300 dark:bg-gray-700 animate-pulse rounded-lg" />
-            )}
-            <Image
-              src={heroImg}
-              alt={title}
-              width={500}
-              height={500}
-              className={`relative z-10 mb-8 sm:mb-12 block rounded-lg w-full h-auto transition-opacity duration-500 ${
-                isImageLoading ? "opacity-0" : "opacity-100"
-              }`}
-              onLoad={() => setIsImageLoading(false)}
-            />
-          </div>
+        <div className="relative mt-10 overflow-hidden rounded-lg border border-line">
+          {isImageLoading && (
+            <div className="h-64 animate-pulse bg-surface" />
+          )}
+          <Image
+            src={heroImg}
+            alt={title}
+            width={1200}
+            height={720}
+            className={`h-auto w-full transition-opacity duration-500 ${
+              isImageLoading ? "opacity-0" : "opacity-100"
+            }`}
+            onLoad={() => setIsImageLoading(false)}
+          />
         </div>
       )}
 
-      <div className="flex items-center justify-center mb-8 sm:mb-12">
-        {poster && (
-          <>
-            {poster}
-            <span className="font-bold text-gray-200 dark:text-gray-500 mx-2">
-              —
-            </span>
-          </>
-        )}
-        <p className="text-base text-gray-400 group-hover:text-gray-500 dark:text-gray-300 dark:group-hover:text-gray-150">
-          {formattedDate}
-        </p>
-      </div>
-      <div className="prose dark:prose-dark w-full max-w-none">
+      <div className="mt-10 space-y-4">
         <MarkdownPages content={content} />
       </div>
-    </>
+    </article>
   );
 }

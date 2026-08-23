@@ -1,17 +1,30 @@
+import type { Metadata } from "next";
+import { WorkRow } from "@/components/work-row";
 import { portfolioProjects } from "@/content/projects/projects";
-import PortfolioCard from "./components/PortfolioCard";
+
+export const metadata: Metadata = {
+  title: "Work",
+  description:
+    "Selected product, ecommerce, and AI work. New case studies landing soon.",
+};
 
 export default function PortfolioPage() {
-  const projects = portfolioProjects;
-
   return (
-    <div className="py-6 max-w-5xl mx-auto">
-      <h2 className="text-3xl font-bold text-start mb-8 text-primary-foreground">
-        Portfolio
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6">
-        {projects.map((project, index) => (
-          <PortfolioCard key={project.title} project={project} index={index} />
+    <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20">
+      <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
+        Work
+      </p>
+      <h1 className="mt-3 text-3xl font-medium tracking-tight sm:text-5xl">
+        Selected work
+      </h1>
+      <p className="mt-4 max-w-2xl text-base text-muted">
+        A new set of case studies is coming. These rows show the kinds of
+        products I ship — ecommerce, agents, platforms, and delivery tools —
+        until the live list lands.
+      </p>
+      <div className="mt-10 border-t border-line">
+        {portfolioProjects.map((project) => (
+          <WorkRow key={project.title} project={project} />
         ))}
       </div>
     </div>

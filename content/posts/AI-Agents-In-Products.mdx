@@ -1,0 +1,32 @@
+---
+title: AI agents that sit inside the product
+subtitle: Chatbots and assistants that can actually do the work
+excerpt: >
+  A bot that cannot act on your product is a demo. Agents belong in the same workflows as the rest of the system.
+poster: Jason Whittaker
+date: 2025-06-04T10:00:00.000Z
+---
+
+The useful question is not “can we add a chatbot?” It is “what should this assistant be allowed to do?”
+
+I build agents and chat interfaces that live inside a real product — support, internal tools, loyalty, ops — and talk to the same APIs and data the rest of the app uses. A model with no tools is a parlour trick.
+
+### Start from a workflow, not a model
+
+Pick one job: answer an order question, file a request, look up a customer, draft a reply an agent still reviews. Then give the assistant the smallest set of tools that job needs.
+
+If the product cannot already do that action through an API, the chatbot will hallucinate a path around it. Fix the product first, then wrap language around it.
+
+### Wire it in, do not park it next door
+
+A widget on a marketing page is not a product agent. The assistant should share auth, permissions, and audit with the rest of the system. If a human cannot see a record, the bot should not either.
+
+That is how you keep chatbots useful in ecommerce and internal tools: they act as another interface on the same platform, not a second brain with a different source of truth.
+
+### Keep a human in the loop where it matters
+
+Some actions can complete. Some should draft. I default to draft-and-confirm when money, data, or a customer is on the line. The agent is faster. The human still owns the outcome.
+
+### What I ship
+
+I will take an agent from a brief to something a team can run: the conversation, the tools, the product hooks, and the delivery around it. The model is a component. The product is the point.
